@@ -1,0 +1,17 @@
+{%extends 'base.html'%}{% load crispy_forms_tags %} {% block title %} add
+comment {% endblock %} {% block content%}
+<form method="post" enctype="multipart/form-data" novalidate>
+  {% csrf_token %}
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="">
+        {{ form.content|as_crispy_field }}
+        <!-- {{ form.post|as_crispy_field }}
+        {{ form.user|as_crispy_field }} -->
+        <button type="submit" class="btn btn-success">Save book</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+{% endblock %}
