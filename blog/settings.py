@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'discussion',
+    'categorys',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -83,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'blog',
         'USER': 'postgres',
-        'PASSWORD': '#ayman99#',
+        'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '5432'
     }

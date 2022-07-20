@@ -13,7 +13,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark  ">
             <div class="container-fluid">
             <a href="#" class="navbar-brand">
-              <img src="{% static 'images/news.png' %}" width="260" height="60" alt="" class="d-inline-block align-middle">
+              <img src="{% static 'images/news.png' %}" width="200" height="55" alt="" class="d-inline-block align-middle m-1">
               <!-- <a class="navbar-brand" href="#">NEWS</a> -->
              </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,7 @@
                             <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
                             {%for category in categorys %}
 	                            <li class="w-100">
-	                                <!-- <a href="{% url 'categorys_details:category_details' category.id %}" class="nav-link px-0 text-info">  -->
+	                                
 	                                <a href="#" class="nav-link px-0 text-info"> <span class="d-none d-sm-inline">{{category.category_name}}</span></a>
 	                            </li>
                             {% endfor%}
