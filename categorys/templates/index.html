@@ -9,11 +9,10 @@
 </head>
 <body>
       <!---------------------------  nav bar  ---------------------------------->
-      <div>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark  ">
             <div class="container-fluid">
             <a href="#" class="navbar-brand">
-              <img src="{% static 'images/news.png' %}" width="200" height="55" alt="" class="d-inline-block align-middle m-1">
+              <img src="{% static 'images/news.png' %}" width="150" height="45" alt="" class="d-inline-block align-middle m-1">
               <!-- <a class="navbar-brand" href="#">NEWS</a> -->
              </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,23 +36,20 @@
                         <li><a class="dropdown-item" href="#">Manage Blog</a></li>
                     </ul>
                 </div> 
-              <div class="collapse navbar-collapse" id="navbarText">
+             <!--  <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">   
-                  <!-- <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Contact Us</a>                    
-                  </li> -->
+                  <li class="nav-item m-1">
+                    <a class="nav-link active " aria-current="page" href="#">login</a>                    
+                  </li>
                  
                 </ul>
-              </div>
-            </div>
+              </div> -->
           </nav>
       </div>
       
     
     
-       <!--  {% block myimage  %} 
-          <img src="{% static 'images/boo.jpg' %}" alt="Girl in a jacket" width="100%" height="600">
-        {% endblock  %} -->
+        
 
 <!----------------------------------------------- slider ------------------------------> 
     <div class="container-fluid">
@@ -71,11 +67,12 @@
                     </li>
                     
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle">
+                        <a href="{% url 'categorys:contactus'%}" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Contact Us</span></a>
                     </li>
                     
                     <li>
+
                         <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Categorys</span> </a>
                             <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
@@ -87,6 +84,11 @@
                             {% endfor%}
                           
                         </ul>
+                    </li>
+
+                    <li>
+                        <a href="#" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">About</span></a>
                     </li>
                   
                 </ul>
@@ -110,11 +112,15 @@
             </div>
         </div>
         <div class="col py-3">
-            <h2 class="card-title">{{categorys.category_name}}</h2>
+            {% block mybody  %} 
+
+        {% endblock  %} 
         </div>
     </div>
 </div>
 <!-------------------------------------------------------------- Footer -------------------------------->
+
+
 <footer class="bg-dark text-center text-white">
     <!-- Grid container -->
     <div class="container p-4">

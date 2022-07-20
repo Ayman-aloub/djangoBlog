@@ -8,6 +8,10 @@ def index(request):
 	return render(request,'index.html',context={"categorys":category})
 	
 
+def cotactus(request):
+	
+	return render(request,'cotactus.html')
+
 def category_details(request,id):
     category = Category.objects.get(pk=id)
    
