@@ -11,7 +11,7 @@
       <!---------------------------  nav bar  ---------------------------------->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark  ">
             <div class="container-fluid">
-            <a href="#" class="navbar-brand">
+            <a href="{% url 'categorys:index' %}" class="navbar-brand">
               <img src="{% static 'images/news.png' %}" width="150" height="45" alt="" class="d-inline-block align-middle m-1">
               <!-- <a class="navbar-brand" href="#">NEWS</a> -->
              </a>
@@ -87,7 +87,7 @@
                     </li>
 
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle">
+                        <a href="{% url 'categorys:aboutus'%}" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">About</span></a>
                     </li>
                   
@@ -177,7 +177,7 @@
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
       © 2022 Copyright:
-      <a class="text-white" href="#">bookshop.com</a>
+      <a class="text-white" href="#">newslive.com</a>
     </div>
     <!-- Copyright -->
   </footer>

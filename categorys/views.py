@@ -12,6 +12,12 @@ def cotactus(request):
 	
 	return render(request,'cotactus.html')
 
+
+def aboutus(request):
+	
+	return render(request,'about.html')
+
+
 def category_details(request,id):
     category = Category.objects.get(pk=id)
    
