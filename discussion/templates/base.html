@@ -16,7 +16,21 @@
     {{user.is_authenticated}}{{user.is_superuser}}
     <div class="container-fluid d-flex">
       <div class="row">
-        <div class="col-3">{{categories}}</div>
+        <div class="col-3">
+          <li>
+
+                        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Categorys</span> </a>
+                            <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
+                            {%for category in categorys %}
+	                            <li class="w-100">
+	                                
+	                                <a href="#" class="nav-link px-0 text-info"> <span class="d-none d-sm-inline">{{category.category_name}}</span></a>
+	                            </li>
+                            {% endfor%}
+                          
+                        </ul>
+                    </li></div>
         <div class="col-9">{%block content%}{%endblock%}</div>
       </div>
     </div>
