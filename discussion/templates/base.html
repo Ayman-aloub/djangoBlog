@@ -13,7 +13,19 @@
     />
   </head>
   <body>
-    {{user.is_authenticated}}{{user.is_superuser}} {{categories}} {%block content%}{%endblock%}
+    {{user.is_authenticated}}{{user.is_superuser}} {{categories}} 
+      <!-- ----------------------form search------------------------ -->
+      <form method=POST action="{% url 'search'  %}" class="d-flex my-3 col-2">
+        {% csrf_token %}
+        <input class="form-control me-2 ms-5" type="search" name="searched"
+          placeholder="Search Posts" aria-label="Search">
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+      </form>
+    {%block content%}{%endblock%}
+    
+    <!-- ---------------------------------footer control pages------------------------------- -->
+    {% comment %} {% include 'discussion/footer.html' %} {% endcomment %}
+    
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
