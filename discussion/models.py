@@ -20,12 +20,15 @@ class Post(models.Model):
     updatedat=models.DateTimeField(auto_now=True)
     like=models.ManyToManyField(User,related_name='likepost',blank=True)
     unlike=models.ManyToManyField(User,related_name='unlikepost',blank=True)
+    def get_post_url(self):
+        return reverse('post',args=[self.pk])
     def get_like_url(self):
         return reverse('likepost',args=[self.pk])
     def get_unlike_url(self):
         return reverse('unlikepost',args=[self.pk])
     def get_addcomment_url(self):
         return reverse('addcomment',args=[self.pk])
+    
     def __str__(self) :
         return self.title
 class Comment(models.Model):
@@ -34,6 +37,8 @@ class Comment(models.Model):
     post=models.ForeignKey(Post,related_name='commentpost',on_delete=models.CASCADE)
     createdat=models.DateTimeField(auto_now_add=True)
     updatedat=models.DateTimeField(auto_now=True)
+    def get_addreply_url(self):
+        return reverse('addreply',args=[self.pk])
     
         
 
