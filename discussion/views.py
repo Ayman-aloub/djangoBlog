@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.views.generic import CreateView,UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from django.core.paginator import Paginator
+
 from .models import Category, Comment, Post
 
 # Create your views here.
@@ -80,7 +82,7 @@ def loadingPages(request):
     page= request.GET.get('page')
     pagination_posts=p.get_page(page)
 
-    # To show num of pages (1,2,3,...)
+    # To show num of pages (1,2)
     nums= "a" * pagination_posts.paginator.num_pages
     pages=pagination_posts
     context = {'posts': posts,'categories': categories,'pages':pages ,'nums':nums}
