@@ -55,3 +55,35 @@ class AddComment(LoginRequiredMixin,CreateView):
         context = super(AddComment, self).get_context_data(*args,**kwargs)
         context['categories'] = Category.objects.all()
         return context
+    
+# ------------------------searchPost------------------------
+def searchPost(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        posts = Post.objects.filter(title=searched)
+        categories = Post.objects.filter(category__name=searched)
+        context = {'searched':searched, 'posts':posts, 'categories':categories}
+        
+        return render(request, 'discussion/search.html',context)
+    else:
+        return render(request, 'discussion/search.html',{})
+
+# ----------------------------footer------------------------------------
+# Home Page Posts 
+def loadingPages(request):
+    categories = Category.objects.all()
+    posts = Post.objects.order_by('-createdat')
+    
+    # number posts in page
+    num_of_posts=5
+    p= Paginator(Post.objects.order_by('-createdat'), num_of_posts)
+    page= request.GET.get('page')
+    pagination_posts=p.get_page(page)
+
+    # To show num of pages (1,2,3,...)
+    nums= "a" * pagination_posts.paginator.num_pages
+    pages=pagination_posts
+    context = {'posts': posts,'categories': categories,'pages':pages ,'nums':nums}
+    # ------------change search page to home page-------------------
+    return render(request, 'discussion/search.html', context)
+ 
