@@ -1,0 +1,146 @@
+{%extends 'base.html'%}{% load crispy_forms_tags %} {% block title %} Search Posts {% endblock %} {% block content%}
+
+<!-- Start of Srearch Panel  -->
+<div class="container">
+    <h1 class="bg-primary text-light fw-light bg-opacity-75 shadow p-2 mb-4 text-center">Your Result</h1>
+    <!-- Check if user search  -->
+    {% if searched %}
+    <!-- check if search about title or tags -->
+    {% if posts or categories %}
+    <!-- if search about title  -->
+    {% for post in posts %}
+    <div class="py-2">
+        <div class="card mb-3 text-center shadow p-3 m-auto" style="max-width: 600px;">
+            <div>
+                <!-- Show post user name  -->
+                <div class="text-center bg-primary text-light p-2">
+                    {{post.user.username}}
+                </div>
+                <div class="card-body">
+                    <!-- post title -->
+                    <h3 class="card-header"><a class="text-dark fw-normal" style="text-decoration: none;"
+                            href="{% url 'post' post.id %}">{{post.title}}</a>
+                    </h3>
+                    <!-- Show image -->
+                    <div>
+                        <img src="/media/{{post.image}}" class="card-img-top col-12 px-1 py-2" alt="..." />
+                    </div>
+                    <!-- Show date -->
+                    <div class="card-title bg-secondary bg-opacity-75">
+                        <p class="text-light card-text">{{post.createdat}}</p>
+                    </div>
+                    <h3 class="card-text">
+                        <a href="#" class="text-dark">{{post.category.name}}</a>
+                    </h3>
+                    <!-- Show post content  -->
+                    <p class="card-text">
+                        {{post.content}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- If search about categories -->
+    {% for post in categories %}
+    <div class="py-2">
+        <div class="card mb-3 text-center shadow p-3 m-auto" style="max-width: 600px;">
+            <div>
+                <!-- Show post user name  -->
+                <div class="text-center bg-primary text-light p-2">
+                    {{post.user.username}}
+                </div>
+                <div class="card-body">
+                    <!-- post title -->
+                    <h3 class="card-header"><a class="text-dark fw-normal" style="text-decoration: none;"
+                            href="{% url 'post' post.id %}">{{post.title}}</a>
+                    </h3>
+                    <!-- Show image -->
+                    <div>
+                        <img src="/media/{{post.image}}" class="card-img-top col-12 px-1 py-2" alt="..." />
+                    </div>
+                    <!-- Show date -->
+                    <div class="card-title bg-secondary bg-opacity-75">
+                        <p class="text-light card-text">{{post.createdat}}</p>
+                    </div>
+                    <h3 class="card-text">
+                        <a href="#" class="text-dark">{{post.category.name}}</a>
+                    </h3>
+                    <!-- Show post content  -->
+                    <p class="card-text">
+                        {{post.content}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <!-- if search with invalid titles/categorys -->
+    {% else %}
+    <h2 style="color: red;" class=" text-center shadow p-2 mb-4 ">Nout Found!</h2>
+    {% endif %}
+    <!-- if search was empty   -->
+    {% else %}
+    <h2 style="color: red;" class=" text-center shadow p-2 mb-4 ">Please Enter the Post title or Category name!</h2>
+    {%endif%}
+</div>
+<!-- End of Search  -->
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+<!-- Start Footer Section -->
+<footer>
+    <div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <!------------------------- Previous Section  -------------------------->
+                <!-- if page has previous show that  -->
+                {% if pages.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo First</a>
+                </li>
+                <li class="page-item ">
+                    <a class="page-link" href="?page={{pg.previous_page_number}}">Previous</a>
+                </li>
+                <!-- if not disable previous  -->
+                {%else%}
+                <li class="page-item disabled">
+                    <a class="page-link" href="?page=1">&laquo First</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link">Previous</a>
+                </li>
+                {%endif%}
+
+                <!-------------- SHOW  num page 1,2,3 ---------------->
+                {% for i in nums %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ forloop.counter}}">{{forloop.counter}}</a>
+                </li>
+                {%endfor%}
+
+                <!-------------------------- Next Section  ----------------------->
+                <!-- if page has next show that  -->
+                {% if pages.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{pg.next_page_number}}">next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{pg.paginator.num_pages}}">Last &raquo</a>
+                </li>
+                {%else%}
+                <!-- if not disable next button  -->
+                <li class="page-item disabled">
+                    <a class="page-link ">next</a>
+                </li>
+                <li class="page-item disabled">
+                    <a class="page-link " href="?page={{pg.paginator.num_pages}}">Last &raquo</a>
+                </li>
+                {%endif%}
+            </ul>
+        </nav>
+        <!-- End of pagination -->
+    </div>
+</footer>
+<!-- End Footer Sesction -->
+{% endblock %}
