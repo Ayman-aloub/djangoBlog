@@ -3,10 +3,11 @@ from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.urls import reverse
 from django.views.generic import CreateView,UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Category, Comment, Post
+from .models import Category, Comment, Post, Reply
 
 # Create your views here.
 
@@ -29,7 +30,7 @@ def likepost(request,id):
         messages.success(request, "Added " + post.title + " to your WishList") 
         
     return HttpResponseRedirect(request.META["HTTP_REFERER"])       
-    
+   
 @login_required
 def unlikepost(request,id):
     post=get_object_or_404(Post,pk=id)
@@ -39,13 +40,12 @@ def unlikepost(request,id):
         post.unlike.add(request.user)
         
     return HttpResponseRedirect(request.META["HTTP_REFERER"])       
-        
+       
 class AddComment(LoginRequiredMixin,CreateView):
     
     model=Comment
-    fields=('content','user','post')
+    fields=('content',)
     template_name='discussion/addcomment.html'
-    success_url='/books/index/'
     
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -55,3 +55,33 @@ class AddComment(LoginRequiredMixin,CreateView):
         context = super(AddComment, self).get_context_data(*args,**kwargs)
         context['categories'] = Category.objects.all()
         return context
+    def get_success_url(self):
+        return reverse('post', kwargs={'id':self.kwargs['id']})
+    
+class AddReply(LoginRequiredMixin,CreateView):
+    
+    model=Reply
+    fields=('content',)
+    template_name='discussion/addcomment.html'
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.comment=get_object_or_404(Comment,pk=self.kwargs['id'])
+        return super().form_valid(form)
+    def get_context_data(self,*args, **kwargs):
+        context = super(AddReply, self).get_context_data(*args,**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
+    def get_success_url(self):
+        return reverse('post', kwargs={'id':self.object.comment.post.pk})
+    
+    
+    
+    
+@login_required
+def subscribe(request,id):
+    category=get_object_or_404(Category,pk=id)
+    if category.user.filter(id=request.user.id).exists():
+        category.user.remove(request.user)
+    else:
+        category.user.add(request.user)
